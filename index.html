@@ -5,13 +5,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Google Mapz - Free Bulma template</title>
+    <title>Dotz - Maps Polygon</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.4/css/bulma.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 </head>
 
 <body>
+
     <nav class="nav has-shadow" id="top">
         <div class="container">
             <div class="nav-left">
@@ -25,7 +28,7 @@
             <span></span>
             </span>
             <div class="nav-right nav-menu">
-
+                <a class="github-button" href="https://github.com/Malkafly" data-size="large" aria-label="Follow @Malkafly on GitHub">Follow @Malkafly</a>
             </div>
         </div>
     </nav>
@@ -48,11 +51,10 @@
                         <div class="field">
                             <label class="label">Digite um endereço</label>
                             <div class="control">
-                                <input id="searchTextField" type="text" placeholder="Enter a location" autocomplete="off">
+                                <input id="searchTextField" class="input" type="text" placeholder="Enter a location" autocomplete="off">
                             </div>
                         </div>
                         <div id="map-canvas"></div>
-                        <div class="lngLat"><span class="one">Lat</span><span class="two">,Lng</span></div>
                     </div>
                 </div>
                 <div class="column is-5 is-offset-1">
@@ -60,9 +62,9 @@
                     <hr>
                     <dl class="list">
                         <dt>Endereço:</dt>
-                        <dd id="endereco"></dd>
+                        <dd id="endereco">R. Joaquim Floriano, 533 - Itaim Bibi, São Paulo - SP, 04534-011</dd>
                         <dt>Coordenada principal:</dt>
-                        <dd id="latlng"></dd>
+                        <dd id="latlng">-23.5846919, -46.6746296</dd>
                     </dl>
                     <table class="table">
                         <thead>

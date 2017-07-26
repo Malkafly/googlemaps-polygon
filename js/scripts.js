@@ -1,5 +1,6 @@
 var map;
 var areaPolygon;
+var areaselecionada = [];
 
 function initMap() {
 
@@ -15,6 +16,16 @@ function initMap() {
 
     var searchBox = document.getElementById('searchTextField');
     var autocomplete = new google.maps.places.Autocomplete(searchBox, latlnginicial);
+    var field = new google.maps.Polygon({
+        paths: [],
+        draggable: false,
+        editable: true,
+        strokeColor: '#ea7718',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#fbbc21',
+        fillOpacity: 0.35
+    });
 
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
         var place = autocomplete.getPlace();
@@ -25,46 +36,62 @@ function initMap() {
             lat: lat,
             lng: long
         });
-        setPolygon(lat, long);
+
         document.getElementById('endereco').innerHTML = a;
         document.getElementById('latlng').innerHTML = lat + "," + long;
     });
 
-    setPolygon(-23.5846919, -46.6746296);
-
-    google.maps.event.addListener(areaPolygon, "dragend", getPolygonCoords);
-    google.maps.event.addListener(areaPolygon.getPath(), "insert_at", getPolygonCoords);
-    google.maps.event.addListener(areaPolygon.getPath(), "remove_at", getPolygonCoords);
-    google.maps.event.addListener(areaPolygon.getPath(), "set_at", getPolygonCoords);
-}
-
-function setPolygon(lat, lng) {
-    var areaselecionada = [
-        new google.maps.LatLng(lat, lng),
-        new google.maps.LatLng(lat, lng)
-    ];
-    // Styling & Controls
-    areaPolygon = new google.maps.Polygon({
-        paths: areaselecionada,
-        draggable: true,
-        editable: true,
-        strokeColor: '#ea7718',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#fbbc21',
-        fillOpacity: 0.35
+    var drawingManager = new google.maps.drawing.DrawingManager({
+        drawingMode: google.maps.drawing.OverlayType.POLYGON,
+        polygonOptions: {
+            editable: true
+        },
+        drawingControlOptions: {
+            position: google.maps.ControlPosition.TOP_CENTER,
+            drawingModes: [google.maps.drawing.OverlayType.POLYGON]
+        }
     });
-    areaPolygon.setMap(null);
-    areaPolygon.setMap(map);
+    drawingManager.setMap(map);
+
+    google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon) {
+        // drawingManager.setOptions({
+        //     drawingMode: null,
+        //     drawingControlOptions: {
+        //         position: google.maps.ControlPosition.TOP_CENTER,
+        //         drawingModes: []
+        //     }
+        // });
+        field.setPath(polygon.getPath().getArray());
+        polygon.setMap(null);
+        polygon = null;
+        field.setMap(map);
+        getPolygonCoords(field.getPath());
+        google.maps.event.addListener(field.getPath(), 'set_at', function (index, obj) {
+            // changed point, via map
+            getPolygonCoords(field.getPath());
+            //console.log("a point has changed");
+        });
+        google.maps.event.addListener(field.getPath(), 'insert_at', function (index, obj) {
+            // new point via map
+            getPolygonCoords(field.getPath());
+            //console.log("a point has been added");
+        });
+        google.maps.event.addListener(field.getPath(), "remove_at", function (index, obj) {
+            //removed point, via map
+            getPolygonCoords(field.getPath());
+            //console.log("a point has been removed");
+        });
+
+    });
+
 }
 
-//Display Coordinates below map
-function getPolygonCoords() {
-    var len = areaPolygon.getPath().getLength();
+
+function getPolygonCoords(path) {
+    var len = path.getLength();
     var htmlStr = "";
     for (var i = 0; i < len; i++) {
-        console.log(areaPolygon.getPath().getAt(i));
-        htmlStr += "<tr><td>" + areaPolygon.getPath().getAt(i).lat() + "</td><td>" + areaPolygon.getPath().getAt(i).lng() + "</td></tr>";
+        htmlStr += "<tr><td>" + path.getAt(i).lat() + "</td><td>" + path.getAt(i).lng() + "</td></tr>";
     }
     document.getElementById('info').innerHTML = htmlStr;
 }
