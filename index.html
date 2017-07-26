@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Google Mapz - Free Bulma template</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.4/css/bulma.css" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <nav class="nav has-shadow" id="top">
+        <div class="container">
+            <div class="nav-left">
+                <a class="nav-item" href="#">
+                    <h1>Dotz - Maps Polygon</h1>
+                </a>
+            </div>
+            <span class="nav-toggle">
+        <span></span>
+            <span></span>
+            <span></span>
+            </span>
+            <div class="nav-right nav-menu">
+
+            </div>
+        </div>
+    </nav>
+    <div class="section product-header">
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    <span class="title is-3">Maps Polygon</span>
+                    <span class="title is-3 has-text-muted">&nbsp;|&nbsp;</span>
+                    <span class="title is-4 has-text-muted">área do parceiro</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-6">
+                    <div class="image is-2by2">
+                        <div class="field">
+                            <label class="label">Digite um endereço</label>
+                            <div class="control">
+                                <input id="searchTextField" type="text" placeholder="Enter a location" autocomplete="off">
+                            </div>
+                        </div>
+                        <div id="map-canvas"></div>
+                        <div class="lngLat"><span class="one">Lat</span><span class="two">,Lng</span></div>
+                    </div>
+                </div>
+                <div class="column is-5 is-offset-1">
+                    <div class="title is-2">Informações da área</div>
+                    <hr>
+                    <dl class="list">
+                        <dt>Endereço:</dt>
+                        <dd id="endereco"></dd>
+                        <dt>Coordenada principal:</dt>
+                        <dd id="latlng"></dd>
+                    </dl>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                            </tr>
+                            <tbody id="info"></tbody>
+                        </thead>
+                    </table>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>Dotz - Maps Polygon</strong> by <a href="http://darkinquisition.com">Daniel Malkafly</a>.
+                </p>
+                <p>
+                    <a class="icon" href="https://github.com/malkafly"><i class="fa fa-github"></i></a>
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCI98J0oO8LO-_1W2xKP0kgsFGetHMA-ik&libraries=drawing,places&callback=initMap"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
+</body>
+
+</html>
